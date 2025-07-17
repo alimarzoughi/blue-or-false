@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Blue or False
 
-## Getting Started
+**Blue or False** is a bluffing card game. Players pass colored, numbered cards and make claims, true or false, about what they’re passing. The goal is to avoid collecting four cards of the same color or the same number in your bank.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Components
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Deck**: 64 cards total, with numbers **1–8** in eight colors (red, blue, yellow, green, purple, orange, pink, black)
+- **Hands**: All cards are dealt evenly; any extras sit face-down aside
+- **Banks**: Each player has a face-up area for cards lost in challenges
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Objective
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Stay in the game as long as possible. You lose if you:
 
-## Learn More
+- Collect **four cards** of the same **color** in your bank
+- Collect **four cards** of the same **number** in your bank
+- Run out of cards in your hand (unable to start a round)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Shuffle the deck and deal all cards evenly to players. 
+2. Place any extra cards aside, face-down.
+3. Decide randomly who leads the first turn.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Turn Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Play**
+   - The current player selects a card from their hand and views it secretly.
+   - They choose any other player as a target and place the card face-down in front of them.
+   - They make a claim about **both** the card’s number and color (truth or lie). Example: “It’s a **3** of **green**.”
+
+2. **Reaction**
+   The receiver must choose one action:
+
+   - **Peek**: Look at the card’s true identity. Then pick any other player (excluding the one who just passed) and pass the card face-down with a **new claim**.
+
+   - **Challenge**: Resolve the claim immediately by choosing one of two options:
+     - **Call “Believe” or “Lying”** about the **color** or the **number**.
+
+3. **Resolution**
+   - Reveal the card face-up.
+   - Check **only** the challenged (or believed) attribute:
+     - If the challenger was correct, i.e., they correctly identified a lie or correctly believed the claim, the **previous player** (the one who made the claim) **loses**.
+     - Otherwise, the **challenger** loses.
+   - The **loser** of this challenge adds the revealed card to their face-up bank.
+
+4. **Next Turn**
+   - The player who lost the challenge **starts** the next round by selecting a card to play to another player.
+
+---
+
+## Special Restrictions
+
+- On a new card’s **first pass**, the **first receiver** **cannot** Challenge (must choose Peek).  
+- On a card’s **final pass** (when only one player remains to receive), the **last receiver** **cannot** Peek (must choose Challenge).
+
+---
+
+## How to Play in the App
+
+1. Launch the app; players and hands are dealt automatically.
+2. When it’s your turn, click a card in your hand to view it.
+3. Select a target player and enter your claim (number + color), then click **Play**.
+4. When you receive a card, choose **Peek** or **Challenge**, then specify color/number if challenging.
+5. After resolution, card banks update automatically. The loser starts the next turn.
+6. The game ends as soon as someone meets a losing condition.
+
+Enjoy bluffing—and catching your opponents in their own tricks!
