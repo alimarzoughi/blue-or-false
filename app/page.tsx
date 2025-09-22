@@ -1,29 +1,27 @@
-import type { CardData } from "./components/card"
-import { colors } from "./components/card"
-import PlayerArea from "./components/playerarea";
+import BlueOrFalse from "./components/BlueOrFalse";
+import type { CardData } from "./components/Card"
+import { colors } from "./components/Card"
 
-function drawCards(player: number): CardData[] {
-  let numbers: CardData[] = [];
-
-  let number;
+function drawCards(): CardData[][] {
+  let hands: CardData[][] = [];
+  let num;
   let color;
-  for (let i=0; i<16; i++) {
-    number = Math.floor(Math.random() * 8) + 1;
-    color = colors[Math.floor(Math.random() * 8)];
-    numbers.push({value: number, color: color, player: player});
+  for (let i = 1; i <= 4; i++) {
+    let hand: CardData[] = [];
+    for (let j = 0; j < 16; j++) {
+      num = Math.floor(Math.random() * 8) + 1;
+      color = colors[Math.floor(Math.random() * 8)];
+      hand.push({value: num, color: color});
+    }
+    hands.push(hand)
   }
-  return numbers;
+  return hands;
 }
 
 export default function Home() {
   return (
     <div className="p-5">
-        <PlayerArea player={1} cards={drawCards(1)}></PlayerArea>
-        <div className="flex justify-between">
-          <PlayerArea player={2} cards={drawCards(2)}></PlayerArea>
-          <PlayerArea player={4} cards={drawCards(4)}></PlayerArea>
-        </div>
-        <PlayerArea player={3} cards={drawCards(3)}></PlayerArea>
+      <BlueOrFalse hands={drawCards()}></BlueOrFalse>
     </div>
   );
 }

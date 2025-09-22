@@ -1,34 +1,44 @@
 "use client"
 
-import React from "react"
-import Card from "./card"
-import type { CardData } from "./card";
+import type { CardData } from "./Card"
+import PlayerBank from "./PlayerBank"
+import PlayerHand from "./PlayerHand"
 
-export default function PlayerArea({ player, cards }: { player: number, cards: CardData[] }) {
-    const [hovered, setHovered] = React.useState<number | null>(null);
-    const playerAreaStyle = "rounded-lg border flex items-center justify-center";
+export default function PlayerArea({ position, bank, cards, players, setPlayers }: {
+    position: number,
+    bank: CardData[],
+    cards: CardData[],
+    players: number[],
+    setPlayers: React.Dispatch<React.SetStateAction<number[]>>
+}) {
+
+    let playerAreaStyle;
+    if (position === 1) {
+        playerAreaStyle = "border rounded-lg flex items-center justify-center flex-col";
+    } else if (position === 2) {
+        playerAreaStyle = "border rounded-lg flex items-center justify-center flex-row-reverse";
+    } else if (position === 3) {
+        playerAreaStyle = "border rounded-lg flex items-center justify-center flex-col-reverse";
+    } else {
+        playerAreaStyle = "border rounded-lg flex items-center justify-center";
+    }
 
     return (
-        <div className={playerAreaStyle + (player % 2 == 0 ? " w-100" : "")}>
-            <div className={"items-center justify-center p-6 flex" + (player % 2 == 0 ? "-col" : "")}>
-                {cards.map((card, i) => (
-                    <div
-                        key={i}
-                        className={(hovered === i ? "transition hover:scale-105 hover:z-20 " : "") + (
-                            i === 0 ? "" : player % 2 == 0 ? "-mt-5" : "-ml-5"
-                        )}
-                        onMouseEnter={() => setHovered(i)}
-                        onMouseLeave={() => setHovered(null)}
-                    >
-                        <Card
-                            key={i}
-                            value={card.value}
-                            color={card.color}
-                            player={card.player}
-                        >
-                        </Card>
-                    </div>
-                ))}
+        <div className={playerAreaStyle + (position % 2 == 0 ? " w-100" : "")}>
+            <PlayerBank position={position} bank={bank}></PlayerBank>
+            <div className={"flex justify-center items-center" + (position % 2 == 0 ? " flex-col" : "")}>
+                <span> Hand Count: {cards.length} </span>
+                <PlayerHand
+                    position={position}
+                    cards={cards}
+                    players={players}
+                    setPlayers={setPlayers}
+                ></PlayerHand>
+                <div className="flex flex-col justify-center items-center gap-1 w-18">
+                    <span> Sort By: </span>
+                    <button className="border-2 rounded-md bg-white w-full"> Color </button>
+                    <button className="border-2 rounded-md bg-white w-full"> Number </button>
+                </div>
             </div>
         </div>
     );  
