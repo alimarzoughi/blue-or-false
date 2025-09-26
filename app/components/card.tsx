@@ -1,6 +1,7 @@
 // "use client"
 
 type CardColor = {
+    id: number,
     bgColor: string,
     txtColor: string
 };
@@ -13,14 +14,14 @@ export type CardData = {
 };
 
 export const colors: CardColor[] = [
-    {bgColor: "#ff71a3ff", txtColor: "#000000"},
-    {bgColor: "#ff4b37ff", txtColor: "#000000"},
-    {bgColor: "#ff9129ff", txtColor: "#000000"},
-    {bgColor: "#ffd631ff", txtColor: "#000000"},
-    {bgColor: "#27ae60ff", txtColor: "#ffffff"},
-    {bgColor: "#4db2ffff", txtColor: "#ffffff"},
-    {bgColor: "#a321d6ff", txtColor: "#ffffff"},
-    {bgColor: "#2d3436ff", txtColor: "#ffffff"}
+    {id: 0, bgColor: "#ff71a3ff", txtColor: "#000000"},
+    {id: 1, bgColor: "#ff4b37ff", txtColor: "#000000"},
+    {id: 2, bgColor: "#ff9129ff", txtColor: "#000000"},
+    {id: 3, bgColor: "#ffd631ff", txtColor: "#000000"},
+    {id: 4, bgColor: "#27ae60ff", txtColor: "#ffffff"},
+    {id: 5, bgColor: "#4db2ffff", txtColor: "#ffffff"},
+    {id: 6, bgColor: "#a321d6ff", txtColor: "#ffffff"},
+    {id: 7, bgColor: "#2d3436ff", txtColor: "#ffffff"}
 ];
 
 function cardStyle(position: number) {

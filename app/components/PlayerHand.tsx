@@ -16,10 +16,9 @@ function cardPadding(i: number, position: number) {
     }
 }
 
-export default function PlayerHand({ position, cards, players, setPlayers }: {
+export default function PlayerHand({ position, cards, setPlayers }: {
     position: number,
     cards: CardData[]
-    players: number[],
     setPlayers: React.Dispatch<React.SetStateAction<number[]>>
 }) {
     const [hovered, setHovered] = React.useState<number | null>(null);

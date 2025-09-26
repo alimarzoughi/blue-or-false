@@ -19,7 +19,7 @@ export default function PlayerBank({ position, bank }: {position: number, bank: 
     const [hovered, setHovered] = React.useState<number | null>(null);
 
     return (
-        <div className={"items-center justify-center p-6 flex " + (position % 2 == 0 ? "flex-col" : "")}>
+        <div className={bank.length == 0 ? "hidden" : "items-center justify-center p-6 flex " + (position % 2 == 0 ? "flex-col" : "")}>
             {bank.map((card, i) => (
                 <div key={i}
                     className={cardPadding(i, position)}

@@ -17,6 +17,7 @@ export default function BlueOrFalse({ hands }: {hands: CardData[][]}) {
           cards={playerHands[players[2]]}
           players={players}
           setPlayers={setPlayers}
+          setHands={setHands}
         ></PlayerArea>
         <div className="flex justify-between items-center">
           <PlayerArea
@@ -25,6 +26,7 @@ export default function BlueOrFalse({ hands }: {hands: CardData[][]}) {
             cards={playerHands[players[1]]}
             players={players}
             setPlayers={setPlayers}
+            setHands={setHands}
           ></PlayerArea>
           <span>Player {players[0] + 1}'s turn</span>
           <PlayerArea
@@ -33,6 +35,7 @@ export default function BlueOrFalse({ hands }: {hands: CardData[][]}) {
             cards={playerHands[players[3]]}
             players={players}
             setPlayers={setPlayers}
+            setHands={setHands}
           ></PlayerArea>
         </div>
         <PlayerArea
@@ -41,6 +44,7 @@ export default function BlueOrFalse({ hands }: {hands: CardData[][]}) {
           cards={playerHands[players[0]]}
           players={players}
           setPlayers={setPlayers}
+          setHands={setHands}
         ></PlayerArea>
     </div>
   );
