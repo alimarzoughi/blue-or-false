@@ -1,13 +1,14 @@
 import BlueOrFalse from "./components/BlueOrFalse";
-import type { CardData } from "./components/Card"
+import type { CardColor, CardData } from "./components/Card"
 import { colors } from "./components/Card"
 
 function drawCards(): CardData[][] {
-  let hands: CardData[][] = [];
-  let num;
-  let color;
+  const hands: CardData[][] = [];
+  let hand: CardData[];
+  let num: number;
+  let color: CardColor;
   for (let i = 1; i <= 4; i++) {
-    let hand: CardData[] = [];
+    hand = [];
     for (let j = 0; j < 16; j++) {
       num = Math.floor(Math.random() * 8) + 1;
       color = colors[Math.floor(Math.random() * 8)];

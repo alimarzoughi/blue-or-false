@@ -6,7 +6,7 @@ import type { CardData } from "./Card"
 import Card from "./Card"
 
 function stack(bank: CardData[], mode: string): CardData[][] {
-    let stacked: CardData[][] = [];
+    const stacked: CardData[][] = [];
     let stack: CardData[] = [];
     let modeCheck: boolean;
     for (let i = 0; i < bank.length; i++) {

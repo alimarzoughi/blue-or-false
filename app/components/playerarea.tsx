@@ -3,22 +3,20 @@
     import React from "react"
 
     import type { CardData } from "./Card"
-    import { colors } from "./Card"
     import PlayerBank from "./PlayerBank"
     import PlayerHand from "./PlayerHand"
 
-    export default function PlayerArea({ position, bank, cards, players, setPlayers, setHands }: {
+    export default function PlayerArea({ position, bank, cards, setHands, setPlayedCard }: {
         position: number,
         bank: CardData[],
         cards: CardData[],
-        players: number[],
-        setPlayers: React.Dispatch<React.SetStateAction<number[]>>
         setHands: React.Dispatch<React.SetStateAction<CardData[][]>>
+        setPlayedCard: React.Dispatch<React.SetStateAction<CardData | null>>
     }) {
         const [mode, setMode] = React.useState("number");
 
         function sortBank(newMode: string) {
-            let idx = players[position - 1];
+            const idx = position - 1;
             setHands(old =>
                 old.map((hand, i) => 
                     i === idx
@@ -33,13 +31,13 @@
 
         let playerAreaStyle = "border rounded-lg flex items-center justify-end ";
         if (position === 1) {
-            playerAreaStyle += "flex-col h-[500px]";
+            playerAreaStyle += "flex-col min-h-[300px] max-h-[500px]";
         } else if (position === 2) {
-            playerAreaStyle += "flex-row-reverse h-[626px] w-[500px]";
+            playerAreaStyle += "flex-row-reverse h-full w-[500px]";
         } else if (position === 3) {
-            playerAreaStyle += "flex-col-reverse h-[500px]";
+            playerAreaStyle += "flex-col-reverse min-h-[300px] max-h-[500px]";
         } else {
-            playerAreaStyle += "h-[626px] w-[500px]";
+            playerAreaStyle += "h-full w-[500px]";
         }
 
         return (
@@ -52,7 +50,7 @@
                     <PlayerHand
                         position={position}
                         cards={cards}
-                        setPlayers={setPlayers}
+                        setPlayedCard={setPlayedCard}
                     ></PlayerHand>
                     <div className={"flex flex-col justify-center items-center gap-1 w-18" + (position === 1 ? " pb-10" : "")}>
                         <span> Sort By: </span>

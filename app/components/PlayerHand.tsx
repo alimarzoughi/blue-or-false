@@ -16,12 +16,16 @@ function cardPadding(i: number, position: number) {
     }
 }
 
-export default function PlayerHand({ position, cards, setPlayers }: {
+export default function PlayerHand({ position, cards, setPlayedCard }: {
     position: number,
     cards: CardData[]
-    setPlayers: React.Dispatch<React.SetStateAction<number[]>>
+    setPlayedCard: React.Dispatch<React.SetStateAction<CardData | null>>
 }) {
     const [hovered, setHovered] = React.useState<number | null>(null);
+
+    function playCard(card: CardData) {
+        setPlayedCard(card);
+    }
     
     return (
         <div className={"items-center justify-center p-6 flex " + (position % 2 == 0 ? "flex-col" : "")}>
@@ -36,7 +40,7 @@ export default function PlayerHand({ position, cards, setPlayers }: {
                         className={
                             position === 1 && hovered === i ? "absolute bottom-0 border-2 rounded-md bg-white w-full z-20" : "hidden"
                         }
-                        onClick={() => setPlayers(old => [...old.slice(1), old[0]])}
+                        onClick={() => playCard(card)}
                     > Play </button>
                     <div className={hovered === i ? "transition group-hover:scale-105 group-hover:z-20 " : ""}>
                         {position === 1 ? <Card card={card} position={position}></Card> : <CardBack position={position}></CardBack>}
