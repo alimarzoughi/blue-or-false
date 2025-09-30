@@ -49,8 +49,8 @@
                     ></PlayerHand>
                     <div className={"flex flex-col justify-center items-center gap-1 w-18" + (position === 1 ? " pb-10" : "")}>
                         <span> Sort By: </span>
-                        <button onClick={() => sortBank("color")} className="border-2 rounded-md bg-white w-full"> Color </button>
-                        <button onClick={() => sortBank("number")} className="border-2 rounded-md bg-white w-full"> Number </button>
+                        <button onClick={() => sortBank("color")} className="border-2 rounded-md w-full"> Color </button>
+                        <button onClick={() => sortBank("number")} className="border-2 rounded-md w-full"> Number </button>
                     </div>
                 </div>
             </div>

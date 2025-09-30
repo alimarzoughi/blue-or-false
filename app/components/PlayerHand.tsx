@@ -41,7 +41,7 @@ export default function PlayerHand({ position, hand, setHand, chooseCard }: {
                     <button
                         className={
                             position === 1 && hovered === i
-                            ? "absolute bottom-0 border-2 rounded-md bg-white w-full z-20"
+                            ? "absolute bottom-0 border-2 rounded-md w-full z-20"
                             : "hidden"
                         }
                         onClick={() => playCard(card)}
