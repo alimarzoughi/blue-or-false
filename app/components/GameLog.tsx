@@ -19,6 +19,6 @@ export default function GameLog({currentPlayer, passedClaim}: {currentPlayer: nu
                     </div>
                 </div>
             </div>
-            : <span>Player {currentPlayer + 1}'s turn</span>
+            : <span>{`Player ${currentPlayer + 1}'s turn`}</span>
     );
 }
