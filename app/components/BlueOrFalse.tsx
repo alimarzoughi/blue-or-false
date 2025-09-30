@@ -9,40 +9,55 @@ import PlayerArea from "./PlayerArea";
 export default function BlueOrFalse({ hands }: {hands: CardData[][]}) {
   const [playerHands, setHands] = React.useState(hands);
   const [currentPlayer, setCurrentPlayer] = React.useState(0);
-  const [playedCard, setPlayedCard] = React.useState<CardData | null>(null);
+  const [chosenCard, chooseCard] = React.useState<CardData | null>(null);
+
+  function setHand(hand: CardData[], player: number) {
+    setHands(prev => {
+      if (player < 0 || player >= prev.length) return prev;
+      const next = [...prev];
+      next[player] = hand;
+      return next;
+    });
+  }
 
   return (
     <div className="p-5">
         <PlayerArea
           position={3}
           bank={[]}
-          cards={playerHands[2]}
-          setHands={setHands}
-          setPlayedCard={setPlayedCard}
+          hand={playerHands[2]}
+          setHand={setHand}
+          chooseCard={chooseCard}
         ></PlayerArea>
         <div className="flex justify-between items-center h-[626px]">
           <PlayerArea
             position={2}
             bank={[]}
-            cards={playerHands[1]}
-            setHands={setHands}
-            setPlayedCard={setPlayedCard}
+            hand={playerHands[1]}
+            setHand={setHand}
+            chooseCard={chooseCard}
           ></PlayerArea>
-          <PassArea currentPlayer={currentPlayer} playedCard={playedCard}></PassArea>
+          <PassArea
+            currentPlayer={currentPlayer}
+            setCurrentPlayer={setCurrentPlayer}
+            chosenCard={chosenCard}
+            chooseCard={chooseCard}
+          >
+          </PassArea>
           <PlayerArea
             position={4}
             bank={[]}
-            cards={playerHands[3]}
-            setHands={setHands}
-            setPlayedCard={setPlayedCard}
+            hand={playerHands[3]}
+            setHand={setHand}
+            chooseCard={chooseCard}
           ></PlayerArea>
         </div>
         <PlayerArea
           position={1}
           bank={[]}
-          cards={playerHands[0]}
-          setHands={setHands}
-          setPlayedCard={setPlayedCard}
+          hand={playerHands[0]}
+          setHand={setHand}
+          chooseCard={chooseCard}
         ></PlayerArea>
     </div>
   );

@@ -16,20 +16,22 @@ function cardPadding(i: number, position: number) {
     }
 }
 
-export default function PlayerHand({ position, cards, setPlayedCard }: {
+export default function PlayerHand({ position, hand, setHand, chooseCard }: {
     position: number,
-    cards: CardData[]
-    setPlayedCard: React.Dispatch<React.SetStateAction<CardData | null>>
+    hand: CardData[]
+    setHand: (hand: CardData[], player: number) => void,
+    chooseCard: React.Dispatch<React.SetStateAction<CardData | null>>
 }) {
     const [hovered, setHovered] = React.useState<number | null>(null);
 
     function playCard(card: CardData) {
-        setPlayedCard(card);
+        chooseCard(card);
+        setHand(hand.filter(c => c.id != card.id), position - 1);
     }
     
     return (
         <div className={"items-center justify-center p-6 flex " + (position % 2 == 0 ? "flex-col" : "")}>
-            {(position === 1 ? cards : cards.slice(0, 8)).map((card, i) => (
+            {(position === 1 ? hand : hand.slice(0, 8)).map((card, i) => (
                 <div
                     key={i}
                     className={"group relative justify-center flex flex-col " + cardPadding(i, position)}
@@ -38,12 +40,17 @@ export default function PlayerHand({ position, cards, setPlayedCard }: {
                 >
                     <button
                         className={
-                            position === 1 && hovered === i ? "absolute bottom-0 border-2 rounded-md bg-white w-full z-20" : "hidden"
+                            position === 1 && hovered === i
+                            ? "absolute bottom-0 border-2 rounded-md bg-white w-full z-20"
+                            : "hidden"
                         }
                         onClick={() => playCard(card)}
                     > Play </button>
-                    <div className={hovered === i ? "transition group-hover:scale-105 group-hover:z-20 " : ""}>
-                        {position === 1 ? <Card card={card} position={position}></Card> : <CardBack position={position}></CardBack>}
+                    <div className="transition transform group-hover:scale-105 group-hover:z-20 ">
+                        {position === 1
+                            ? <Card card={card} position={position}></Card>
+                            : <CardBack position={position}></CardBack>
+                        }
                     </div>
                 </div>
             ))}

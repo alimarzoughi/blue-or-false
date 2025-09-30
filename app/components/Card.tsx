@@ -6,6 +6,7 @@ export type CardColor = {
 };
 
 export type CardData = {
+    id: number,
     value: number,
     color: CardColor
 };

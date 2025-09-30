@@ -12,7 +12,7 @@ function drawCards(): CardData[][] {
     for (let j = 0; j < 16; j++) {
       num = Math.floor(Math.random() * 8) + 1;
       color = colors[Math.floor(Math.random() * 8)];
-      hand.push({value: num, color: color});
+      hand.push({id: i * 16 + j, value: num, color: color});
     }
     hands.push(hand)
   }

@@ -6,26 +6,20 @@
     import PlayerBank from "./PlayerBank"
     import PlayerHand from "./PlayerHand"
 
-    export default function PlayerArea({ position, bank, cards, setHands, setPlayedCard }: {
+    export default function PlayerArea({ position, bank, hand, setHand, chooseCard }: {
         position: number,
         bank: CardData[],
-        cards: CardData[],
-        setHands: React.Dispatch<React.SetStateAction<CardData[][]>>
-        setPlayedCard: React.Dispatch<React.SetStateAction<CardData | null>>
+        hand: CardData[],
+        setHand: (hand: CardData[], player: number) => void
+        chooseCard: React.Dispatch<React.SetStateAction<CardData | null>>
     }) {
         const [mode, setMode] = React.useState("number");
 
         function sortBank(newMode: string) {
-            const idx = position - 1;
-            setHands(old =>
-                old.map((hand, i) => 
-                    i === idx
-                    ? newMode === "number"
-                        ? hand.toSorted((a, b) => a.value - b.value)
-                        : hand.toSorted((a, b) => a.color.id - b.color.id)
-                    : hand
-                )
-            );
+            const newHand = newMode === "number"
+                ? hand.toSorted((a, b) => a.value - b.value)
+                : hand.toSorted((a, b) => a.color.id - b.color.id)
+            setHand(newHand, position - 1);
             setMode(newMode);
         }
 
@@ -45,12 +39,13 @@
                 <PlayerBank position={position} mode={mode} bank={bank}></PlayerBank>
                 <div className={"flex justify-center items-center " + (position % 2 == 0 ? "flex-col" : "gap-10")}>
                     <div className={"w-18" + (position % 2 == 0 ? "" : " pb-6")}>
-                        <span> Hand Count: {cards.length} </span>
+                        <span> Hand Count: {hand.length} </span>
                     </div>
                     <PlayerHand
                         position={position}
-                        cards={cards}
-                        setPlayedCard={setPlayedCard}
+                        hand={hand}
+                        setHand={setHand}
+                        chooseCard={chooseCard}
                     ></PlayerHand>
                     <div className={"flex flex-col justify-center items-center gap-1 w-18" + (position === 1 ? " pb-10" : "")}>
                         <span> Sort By: </span>
